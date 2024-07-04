@@ -95,7 +95,7 @@ export class UserRegistrationService {
   }
 
   //Make the api call for the Get Favorite Movie as a User Endpoint
-  getFavouriteMovies(username: string): Observable<any> {
+  getFavoriteMovies(username: string): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.get(apiUrl + 'users/' + username, {headers: new HttpHeaders(
       {
