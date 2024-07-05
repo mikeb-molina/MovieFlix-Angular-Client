@@ -65,4 +65,18 @@ export class UserProfileComponent implements OnInit{
     this.router.navigate(["movies"]);
   
   }
+
+  removeFromFavorite(movie: any): void {
+    this.fetchApiData.deleteFavoriteMovie(this.userData.id, movie.title).subscribe((res: any) => {
+      this.userData.favoriteMovies = res.favoriteMovies;
+      this.getFavoriteMovies();
+    }, (err: any) => {
+      console.error(err)
+    })
+  }
+
+  logout(): void {
+    this.router.navigate(["welcome"]);
+    localStorage.removeItem("user");
+  }
 }

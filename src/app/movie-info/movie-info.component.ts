@@ -11,7 +11,7 @@ export class MovieInfoComponent implements OnInit{
         public data: {
             title: string,
             content: string
-        },
+          },
         public dialogRef: MatDialogRef<MovieInfoComponent>
     ) {}
 

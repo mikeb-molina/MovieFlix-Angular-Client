@@ -11,7 +11,6 @@
                 <mat-card-subtitle>Directed by: {{movie.Director.Name}}</mat-card-subtitle>
             </mat-dialog-content>   
             <img src={{movie.ImagePath}} width="300px" height="350px"/>
-            <mat-card-content>Description: {{movie.Description}}</mat-card-content>
             <mat-card-actions>
                 <button
                     mat-button
@@ -32,7 +31,7 @@
                 color="secondary"
                 (click)="showDetail(movie)"
                 >
-                    Show Details
+                    Synopsis
                 </button>
                 <mat-icon
                 fontIcon="{{ movie.isFavorite ? 'favorite' : 'favorite_border'}}"
@@ -41,11 +40,5 @@
                 >favorite_border</mat-icon>
             </mat-card-actions>
         </mat-card>
-        <button class="arrow prev" (click)="scroll(-1)" *ngIf="showLeftArrow">
-            <mat-icon>keyboard_arrow_left</mat-icon>
-          </button>
-          <button class="arrow next" (click)="scroll(1)" *ngIf="showRightArrow">
-            <mat-icon>keyboard_arrow_right</mat-icon>
-        </button>
     </div>
 </div>

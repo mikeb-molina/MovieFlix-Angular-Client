@@ -12,8 +12,6 @@ import { MovieInfoComponent } from '../movie-info/movie-info.component';
 })
 export class MovieCardComponent implements OnInit{
   movies: any[] = [];
-  dialog: any;
-  router: any;
 
   showLeftArrow: boolean = false;
   showRightArrow: boolean = true;
@@ -36,7 +34,9 @@ export class MovieCardComponent implements OnInit{
     this.showRightArrow = container.scrollLeft < maxScrollLeft;
   }
   constructor(
-    public fetchApiData: UserRegistrationService
+    public fetchApiData: UserRegistrationService,
+    public router: Router,
+    public dialog: MatDialog
     
   ) { }
 
@@ -68,9 +68,6 @@ export class MovieCardComponent implements OnInit{
             console.error(err)
         })
     } else {
-        // icon?.setAttribute("fontIcon", "favorite");
-        // user.favoriteMovies.push(movie._id);
-        // addFavoriteMovie return unauth, debugging
         this.fetchApiData.addFavoriteMovies(user.id, movie.title).subscribe(res => {
             icon?.setAttribute("fontIcon", "favorite");
 
@@ -88,8 +85,8 @@ export class MovieCardComponent implements OnInit{
 showGenre(movie: any): void {
   this.dialog.open(MovieInfoComponent, {
       data: {
-          title: String(movie.genre.type).toUpperCase(),
-          content: movie.genre.description
+          title: String(movie.Genre.Name).toUpperCase(),
+          content: movie.Genre.Description
       },
       width: "400px"
   })
@@ -98,8 +95,8 @@ showGenre(movie: any): void {
 showDirector(movie: any): void {
   this.dialog.open(MovieInfoComponent, {
       data: {
-          title: movie.director.name,
-          content: movie.genre.description
+          title: movie.Director.Name,
+          content: movie.Director.Bio
       },
       width: "400px"
   })
@@ -108,8 +105,8 @@ showDirector(movie: any): void {
 showDetail(movie: any): void {
   this.dialog.open(MovieInfoComponent, {
       data: {
-          Title: movie.title,
-          Description: movie.description
+          title: movie.Title,
+          content: movie.Description
       },
       width: "400px"
   })
