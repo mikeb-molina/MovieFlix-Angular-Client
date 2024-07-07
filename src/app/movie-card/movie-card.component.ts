@@ -12,6 +12,7 @@ import { MovieInfoComponent } from '../movie-info/movie-info.component';
 })
 export class MovieCardComponent implements OnInit{
   movies: any[] = [];
+  users: [] = [];
 
   showLeftArrow: boolean = false;
   showRightArrow: boolean = true;
@@ -42,11 +43,17 @@ export class MovieCardComponent implements OnInit{
 
   ngOnInit(): void {
     this.getMovies();
+
   }
+
 
   getMovies(): void{
     this.fetchApiData.getAllMovies().subscribe((resp: any) => {
       this.movies= resp;
+      let user = JSON.parse(localStorage.getItem("user") || "");
+            this.movies.forEach((movie: any) => {
+                movie.isFavorite = user.FavoriteMovies?.includes(movie.Title);
+            })
       console.log(this.movies);
       return this.movies;
     });
@@ -54,26 +61,26 @@ export class MovieCardComponent implements OnInit{
 
   modifyFavoriteMovies(movie: any): void {
     let user = JSON.parse(localStorage.getItem("user") || "");
-    let icon = document.getElementById(`${movie._id}-favorite-icon`);
+    let icon = document.getElementById(`${movie.Title}-favorite-icon`);
 
-    if (user.favoriteMovies.includes(movie._id)) {
-        this.fetchApiData.deleteFavoriteMovie(user.id, movie.title).subscribe(res => {
+    if (user.FavoriteMovies?.includes(movie.Title)) {
+        this.fetchApiData.deleteFavoriteMovie(user.Username, movie.Title).subscribe(res => {
             icon?.setAttribute("fontIcon", "favorite_border");
 
             console.log("del success")
             console.log(res);
-            user.favoriteMovies = res.favoriteMovies;
+            user.FavoriteMovies = res.FavoriteMovies;
             localStorage.setItem("user", JSON.stringify(user));
         }, err => {
             console.error(err)
         })
     } else {
-        this.fetchApiData.addFavoriteMovies(user.id, movie.title).subscribe(res => {
+        this.fetchApiData.addFavoriteMovies(user.Username, movie.Title).subscribe(res => {
             icon?.setAttribute("fontIcon", "favorite");
 
             console.log("add success")
             console.log(res);
-            user.favoriteMovies = res.favoriteMovies;
+            user.FavoriteMovies = res.FavoriteMovies;
             localStorage.setItem("user", JSON.stringify(user));
         }, err => {
             console.error(err)
