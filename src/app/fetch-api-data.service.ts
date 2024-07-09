@@ -17,6 +17,11 @@ export class UserRegistrationService {
   constructor(private http:HttpClient) { 
     
   }
+
+  private getToken(): string {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user).token : '';
+}
   
   //Making the api call for the user registration endpoint
   public userRegistration(userDetails: any): Observable<any> {
@@ -95,11 +100,11 @@ export class UserRegistrationService {
   }
 
   //Make the api call for the Get Favorite Movie as a User Endpoint
-  getFavoriteMovies(username: string): Observable<any> {
+  getFavoriteMovie(username: string): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.get(apiUrl + 'users/' + username, {headers: new HttpHeaders(
       {
-        Authorization: 'Bearer ' + token,
+        Authorization: `Bearer ${this.getToken()}` ,
       })}).pipe(
       map(this.extractResponseData),
       map((data) => data.FavoriteMovies),
@@ -108,9 +113,10 @@ export class UserRegistrationService {
   }
 
   //Make the api call for the Add Movie to Favorites Endpoint
-  addFavoriteMovies(username: string, title: string): Observable<any> {
+  addFavoriteMovies(Username: string, movieID: string): Observable<any> {
     const token = localStorage.getItem('token');
-    return this.http.post(apiUrl + 'users/' + username + '/movies/' + title, {}, {headers: new HttpHeaders(
+    console.log(apiUrl +'users/' + Username + '/movies/' + movieID)
+    return this.http.get(apiUrl +'users/' + Username + '/movies/' + movieID, {headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token,
       })}).pipe(

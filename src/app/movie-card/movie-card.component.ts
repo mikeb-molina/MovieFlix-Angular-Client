@@ -46,6 +46,11 @@ export class MovieCardComponent implements OnInit{
 
   }
 
+  isFavoriteMovie(movieId: string): boolean {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    return user.FavoriteMovies.indexOf(movieId) >= 0;
+  }
+
 
   getMovies(): void{
     this.fetchApiData.getAllMovies().subscribe((resp: any) => {
@@ -59,12 +64,12 @@ export class MovieCardComponent implements OnInit{
     });
   }
 
-  modifyFavoriteMovies(MovieID: any): void {
+  modifyFavoriteMovies(movie: any): void {
     let user = JSON.parse(localStorage.getItem("user") || "");
-    let icon = document.getElementById(`${MovieID}-favorite-icon`);
-
-    if (user.FavoriteMovies?.includes(MovieID)) {
-        this.fetchApiData.deleteFavoriteMovie(user.Username, MovieID).subscribe(res => {
+    let icon = document.getElementById(`${movie._id}-favorite-icon`);
+    
+    if (user.FavoriteMovies?.includes(movie._id)) {
+        this.fetchApiData.deleteFavoriteMovie(user.Username, movie.Title).subscribe(res => {
             icon?.setAttribute("fontIcon", "favorite_border");
 
             console.log("del success")
@@ -75,7 +80,7 @@ export class MovieCardComponent implements OnInit{
             console.error(err)
         })
     } else {
-        this.fetchApiData.addFavoriteMovies(user.Username, MovieID).subscribe(res => {
+        this.fetchApiData.addFavoriteMovies(user.Username, movie.Title).subscribe(res => {
             icon?.setAttribute("fontIcon", "favorite");
 
             console.log("add success")
