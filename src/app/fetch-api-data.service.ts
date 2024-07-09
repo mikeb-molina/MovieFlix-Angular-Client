@@ -26,7 +26,7 @@ export class UserRegistrationService {
   //Making the api call for the user registration endpoint
   public userRegistration(userDetails: any): Observable<any> {
     console.log(userDetails);
-    return this.http.post(apiUrl + 'users/', userDetails).pipe(
+    return this.http.post(apiUrl + 'users', userDetails).pipe(
     catchError(this.handleError)
     );
   }
@@ -113,10 +113,10 @@ export class UserRegistrationService {
   }
 
   //Make the api call for the Add Movie to Favorites Endpoint
-  addFavoriteMovies(Username: string, movieID: string): Observable<any> {
+  public addFavoriteMovies(Username: string, movieID: string): Observable<any> {
     const token = localStorage.getItem('token');
-    console.log(apiUrl +'users/' + Username + '/movies/' + movieID)
-    return this.http.get(apiUrl +'users/' + Username + '/movies/' + movieID, {headers: new HttpHeaders(
+    console.log(apiUrl +'users/' + Username + '/movies/' + movieID);
+    return this.http.post(apiUrl +'users/' + Username + '/movies/' + movieID, {headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token,
       })}).pipe(

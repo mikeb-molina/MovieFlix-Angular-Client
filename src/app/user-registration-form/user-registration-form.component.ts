@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { UserRegistrationService } from '../fetch-api-data.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { response } from 'express';
+
 
 @Component({
   selector: 'app-user-registration-form',
@@ -23,13 +23,13 @@ ngOnInit(): void {
 
 // This is the function responsible for sending the form inputs to the backend
 registerUser(): void {
-    this.fetchApiData.userRegistration(this.userData).subscribe((result) => {
+    this.fetchApiData.userRegistration(this.userData).subscribe((_result) => {
   // Logic for a successful user registration goes here! (To be implemented)
      this.dialogRef.close(); // This will close the modal on success!
      this.snackBar.open('User Created!', 'OK', {
         duration: 2000
      });
-    }, (result) => {   
+    }, (_result) => {   
       this.snackBar.open('User creation Failed', 'OK', {
         duration: 2000
       });
