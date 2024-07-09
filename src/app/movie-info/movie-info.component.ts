@@ -10,7 +10,7 @@ export class MovieInfoComponent implements OnInit{
   constructor(@Inject(MAT_DIALOG_DATA)
         public data: {
             title: string,
-            content: string
+            content: string,
           },
         public dialogRef: MatDialogRef<MovieInfoComponent>
     ) {}
