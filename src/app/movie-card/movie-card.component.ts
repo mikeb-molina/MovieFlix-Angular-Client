@@ -52,19 +52,19 @@ export class MovieCardComponent implements OnInit{
       this.movies= resp;
       let user = JSON.parse(localStorage.getItem("user") || "");
             this.movies.forEach((movie: any) => {
-                movie.isFavorite = user.FavoriteMovies?.includes(movie.Title);
+                movie.isFavorite = user.FavoriteMovies?.includes(movie._id);
             })
       console.log(this.movies);
       return this.movies;
     });
   }
 
-  modifyFavoriteMovies(movie: any): void {
+  modifyFavoriteMovies(MovieID: any): void {
     let user = JSON.parse(localStorage.getItem("user") || "");
-    let icon = document.getElementById(`${movie.Title}-favorite-icon`);
+    let icon = document.getElementById(`${MovieID}-favorite-icon`);
 
-    if (user.FavoriteMovies?.includes(movie.Title)) {
-        this.fetchApiData.deleteFavoriteMovie(user.Username, movie.Title).subscribe(res => {
+    if (user.FavoriteMovies?.includes(MovieID)) {
+        this.fetchApiData.deleteFavoriteMovie(user.Username, MovieID).subscribe(res => {
             icon?.setAttribute("fontIcon", "favorite_border");
 
             console.log("del success")
@@ -75,7 +75,7 @@ export class MovieCardComponent implements OnInit{
             console.error(err)
         })
     } else {
-        this.fetchApiData.addFavoriteMovies(user.Username, movie.Title).subscribe(res => {
+        this.fetchApiData.addFavoriteMovies(user.Username, MovieID).subscribe(res => {
             icon?.setAttribute("fontIcon", "favorite");
 
             console.log("add success")

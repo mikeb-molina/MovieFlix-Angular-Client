@@ -110,7 +110,7 @@ export class UserRegistrationService {
   //Make the api call for the Add Movie to Favorites Endpoint
   addFavoriteMovies(username: string, title: string): Observable<any> {
     const token = localStorage.getItem('token');
-    return this.http.post(apiUrl + `/users/${username}/${title}`, {}, {headers: new HttpHeaders(
+    return this.http.post(apiUrl + 'users/' + username + '/movies/' + title, {}, {headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token,
       })}).pipe(
@@ -144,9 +144,9 @@ export class UserRegistrationService {
   }
 
   //Make the api call for the Delete Movie From Favorites Endpoint
-  deleteFavoriteMovie(username: string, title: string): Observable<any> {
+  deleteFavoriteMovie(username: string, MovieID: string): Observable<any> {
     const token = localStorage.getItem('token');
-    return this.http.get(apiUrl + `/users/${username}/${title}`, {headers: new HttpHeaders(
+    return this.http.get(apiUrl + 'users/' + username + '/movies/' + MovieID, {headers: new HttpHeaders(
       {
         Authrorization: 'Bearer ' + token,
       })}).pipe(
