@@ -22,10 +22,10 @@ export class UserProfileComponent implements OnInit{
   }
 
   getUser(): void {
-    this.fetchApiData.getUser(this.userData.Username).subscribe((res: any) => {
+    this.fetchApiData.getUserByUsername(this.userData.Username).subscribe((res: any) => {
       this.userData = {
         ...res,
-        id: res._id,
+        id: res.Username,
         password: this.userData.Password,
         token: this.userData.token
       };

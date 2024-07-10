@@ -37,7 +37,7 @@
                 <mat-icon
                 fontIcon="{{ movie.isFavorite ? 'favorite' : 'favorite_border'}}"
                     id="{{movie._id}}-favorite-icon"
-                    (click)="modifyFavoriteMovies(movie)"
+                    (click)="modifyFavoriteMovies(movie._id)"
                 >favorite_border</mat-icon>
             </mat-card-actions>
         </mat-card>
