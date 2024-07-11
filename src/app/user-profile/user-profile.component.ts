@@ -39,7 +39,7 @@ export class UserProfileComponent implements OnInit{
   getFavoriteMovies(): void{
     this.fetchApiData.getAllMovies().subscribe((res: any) => {
       this.FavoriteMovies = res.filter((movie: any) => {
-        return this.userData.FavoriteMovies.includes(movie._id)
+        return this.userData.FavoriteMovies?.includes(movie._id)
       })
     }, (err: any) => {
       console.error(err);
@@ -48,12 +48,14 @@ export class UserProfileComponent implements OnInit{
 
   updateUser(): void {
     this.fetchApiData.editUser(this.userData).subscribe((res: any) => {
+      console.log(res)
       this.userData = {
         ...res,
         id: res._id,
         password: this.userData.password,
-        token: this.userData.token
+        token: this.userData.token,
       };
+      
       localStorage.setItem("user", JSON.stringify(this.userData));
       this.getFavoriteMovies();
     }, (err: any) => {

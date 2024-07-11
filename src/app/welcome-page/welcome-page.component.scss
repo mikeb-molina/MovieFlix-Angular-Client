@@ -3,12 +3,14 @@
     display: flexbox;
     justify-content: center;
     align-items: center;
-  }
-  .main-page {
+    color:rgb(26, 32, 41);
     margin: 80px;
     padding: 24px;
     align-self: center;
     text-align: center;
+  }
+  .body{
+    background-color: rgb(48, 110, 204);
   }
   h1 {
     font-size: 80px;
