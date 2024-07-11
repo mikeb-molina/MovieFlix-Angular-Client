@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class UserProfileComponent implements OnInit{
   userData: any = {};
-  favoriteMovies: any[] = [];
+  FavoriteMovies: any[] = [];
   constructor(
     public fetchApiData: UserRegistrationService,
     public router: Router
@@ -36,7 +36,7 @@ export class UserProfileComponent implements OnInit{
 
   getFavoriteMovies(): void{
     this.fetchApiData.getAllMovies().subscribe((res: any) => {
-      this.favoriteMovies = res.filter((movie: any) => {
+      this.FavoriteMovies = res.filter((movie: any) => {
         return this.userData.FavoriteMovies.includes(movie._id)
       })
     }, (err: any) => {
@@ -67,8 +67,8 @@ export class UserProfileComponent implements OnInit{
   }
 
   removeFromFavorite(movie: any): void {
-    this.fetchApiData.deleteFavoriteMovie(this.userData.id, movie.title).subscribe((res: any) => {
-      this.userData.favoriteMovies = res.favoriteMovies;
+    this.fetchApiData.deleteFavoriteMovie(this.userData.id, movie).subscribe((res: any) => {
+      this.userData.FavoriteMovies = res.FavoriteMovies;
       this.getFavoriteMovies();
     }, (err: any) => {
       console.error(err)

@@ -86,16 +86,17 @@ Logout
     <!-- Favorite Movies -->
     <mat-card-title>Favorite Movies</mat-card-title>
     <div style="display: flex;">
-        <mat-card *ngFor="let movie of this.favoriteMovies;" style="width: 280px; margin-right: 10px;">
+        <mat-card *ngFor="let movie of this.FavoriteMovies;" style="width: 280px; margin-right: 10px;">
             <mat-card-header>
-                <mat-card-title>{{movie.title}}</mat-card-title>
-                <mat-card-subtitle>Directed by: {{movie.director.name}}</mat-card-subtitle>
+                <mat-card-title>{{movie.Title}}</mat-card-title>
+                <mat-card-subtitle>Directed by: {{movie.Director.Name}}</mat-card-subtitle>
+                
             </mat-card-header>
-            <img src={{movie.imagePath}} alt= {{movie.title}} />
+            <img src={{movie.ImagePath}} width="100px" height="150px"/>
             <mat-card-actions>
                 <button
                 mat-raised-button
-                (click)="removeFromFavorite(movie)"
+                (click)="removeFromFavorite(movie._id)"
                 color="primary"
                 style="margin-right: 10px;"
                 >
