@@ -37,7 +37,7 @@ export class UserProfileComponent implements OnInit{
   getFavoriteMovies(): void{
     this.fetchApiData.getAllMovies().subscribe((res: any) => {
       this.FavoriteMovies = res.filter((movie: any) => {
-        return this.userData.FavoriteMovies.includes(movie._id)
+        return this.userData.FavoriteMovies.includes(movie)
       })
     }, (err: any) => {
       console.error(err);

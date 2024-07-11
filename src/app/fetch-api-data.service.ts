@@ -129,9 +129,9 @@ export class UserRegistrationService {
   }
 
   //Make the api call for the Edit User Endpoint
-  editUser(Username: string): Observable<any> {
+  editUser(userDetails: any): Observable<any> {
     const token = localStorage.getItem('token');
-    return this.http.get(apiUrl + 'users/' + Username, {headers: new HttpHeaders(
+    return this.http.put(apiUrl + 'users/' + userDetails, {headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token,
       })}).pipe(
