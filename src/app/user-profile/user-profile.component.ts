@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserRegistrationService } from '../fetch-api-data.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-profile',
@@ -12,7 +13,8 @@ export class UserProfileComponent implements OnInit{
   FavoriteMovies: any[] = [];
   constructor(
     public fetchApiData: UserRegistrationService,
-    public router: Router
+    public router: Router,
+    public snackBar: MatSnackBar
   ) {
     this.userData = JSON.parse(localStorage.getItem("user") || "");
   }
@@ -37,7 +39,7 @@ export class UserProfileComponent implements OnInit{
   getFavoriteMovies(): void{
     this.fetchApiData.getAllMovies().subscribe((res: any) => {
       this.FavoriteMovies = res.filter((movie: any) => {
-        return this.userData.FavoriteMovies.includes(movie)
+        return this.userData.FavoriteMovies.includes(movie._id)
       })
     }, (err: any) => {
       console.error(err);
@@ -73,6 +75,17 @@ export class UserProfileComponent implements OnInit{
     }, (err: any) => {
       console.error(err)
     })
+  }
+
+  deleteUserData(): void {
+    this.fetchApiData.deleteUser(this.userData.Username).subscribe((resp: any) => {
+      this.fetchApiData = resp;
+      console.log(resp);
+    });
+    this.snackBar.open('Account deleted', 'Success', {
+      duration: 2000,
+    });
+    this.router.navigate(['/welcome']);
   }
 
   logout(): void {
