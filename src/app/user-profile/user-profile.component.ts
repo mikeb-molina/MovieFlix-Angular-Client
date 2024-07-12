@@ -47,11 +47,11 @@ export class UserProfileComponent implements OnInit{
   }
 
   updateUser(): void {
+    this.userData = JSON.parse(localStorage.getItem("user") || "");
     this.fetchApiData.editUser(this.userData).subscribe((res: any) => {
-      console.log(res)
-      this.userData = {
+      this.userData.Username = {
         ...res,
-        id: res._id,
+        
         password: this.userData.password,
         token: this.userData.token,
       };

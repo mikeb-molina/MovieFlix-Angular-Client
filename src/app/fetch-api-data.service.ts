@@ -18,6 +18,11 @@ export class UserRegistrationService {
     
   }
 
+  private getToken(): string {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user).token : '';
+}
+
 
   
   //Making the api call for the user registration endpoint
@@ -40,10 +45,10 @@ export class UserRegistrationService {
 
   //Make the api call for the Get All Movies Endpoint
   getAllMovies(): Observable<any> {
-    const token = localStorage.getItem('token');
+    
     return this.http.get(apiUrl + 'movies/', {headers: new HttpHeaders(
       {
-        Authorization: 'Bearer ' + token,
+        Authorization: `Bearer ${this.getToken()}`,
       })}).pipe(
         map(this.extractResponseData),
         catchError(this.handleError)
@@ -52,10 +57,10 @@ export class UserRegistrationService {
 
     //Make the api call for the Get One Movie Endpoint
   getOneMovies(title: string): Observable<any> {
-    const token = localStorage.getItem('token');
+    
     return this.http.get(apiUrl + 'movies/' + title, {headers: new HttpHeaders(
       {
-        Authorization: 'Bearer ' + token,
+        Authorization: `Bearer ${this.getToken()}`,
       })}).pipe(
         map(this.extractResponseData),
         catchError(this.handleError)
@@ -64,10 +69,10 @@ export class UserRegistrationService {
 
   //Make the api call for the Get Director Endpoint
   getDirector( directorName: string): Observable<any> {
-    const token = localStorage.getItem('token');
+  
     return this.http.get(apiUrl+ 'movies/directors/' + directorName, {headers: new HttpHeaders(
       {
-        Authorization: 'Bearer ' + token,
+        Authorization: `Bearer ${this.getToken()}`,
       })}).pipe(
         map(this.extractResponseData),
         catchError(this.handleError)
@@ -76,10 +81,10 @@ export class UserRegistrationService {
 
   //Make the api call for the Get Genre Endpoint
   getGenre( genreName: string): Observable<any> {
-    const token=localStorage.getItem('token');
+    
     return this.http.get(apiUrl + 'movies/genre/' + genreName, {headers: new HttpHeaders(
       {
-        Authorization: 'Bearer ' + token,
+        Authorization: `Bearer ${this.getToken()}`,
       })}).pipe(
         map(this.extractResponseData),
         catchError(this.handleError)
@@ -126,9 +131,10 @@ export class UserRegistrationService {
   }
 
   //Make the api call for the Edit User Endpoint
-  editUser(userData: any): Observable<any> {
+  editUser(Username: string): Observable<any> {
     const token = localStorage.getItem('token');
-    return this.http.put(apiUrl + 'users/' + userData, {headers: new HttpHeaders(
+    console.log(apiUrl + 'users/' +  Username)
+    return this.http.put(apiUrl + 'users/' +  Username, {headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token,
       })}).pipe(

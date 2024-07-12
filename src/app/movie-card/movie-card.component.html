@@ -1,7 +1,22 @@
 <div>
     <nav>
-        <button mat-button color="primary" (click)="redirectProfile()">User Profile</button>
-        <button mat-button color="primary" (click)="logout()">Logout</button>
+        <button 
+        mat-raised-button 
+            (click)="logout()"
+            color="primary"
+            style="margin-right: 10px;"
+            >
+            Logout
+        </button>
+        <button
+        mat-raised-button
+            (click)="redirectProfile()"
+            color="primary"
+            style="margin-right: 10px;"
+            >
+            User Profile   
+        </button>
+        
     </nav>
 
     <div class="movie-grid" (scroll)="updateArrowVisibility($event.target)">
