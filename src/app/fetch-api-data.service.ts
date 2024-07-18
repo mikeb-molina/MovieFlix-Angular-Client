@@ -25,7 +25,10 @@ export class UserRegistrationService {
 
 
   
-  //Making the api call for the user registration endpoint
+  /**Making the api call for the user registration endpoint
+   *@param {Object} userDetails must include Username and Password
+   * @return
+   */
   public userRegistration(userDetails: any): Observable<any> {
     console.log(userDetails);
     return this.http.post(apiUrl + 'users', userDetails).pipe(
@@ -34,7 +37,10 @@ export class UserRegistrationService {
     );
   }
 
-  //Make the api call for the user login endpoint
+  /**Make the api call for the user login endpoint
+  *@param {Object} userDetails must include Username and Password
+  *@return
+  */
   public userLogin(userDetails: any): Observable<any> {
     console.log(userDetails);
     return this.http.post(apiUrl + 'login/', userDetails).pipe(
@@ -43,7 +49,9 @@ export class UserRegistrationService {
     );
   }
 
-  //Make the api call for the Get All Movies Endpoint
+  /**Make the api call for the Get All Movies Endpoint
+   * @return 401 status is token is false, returns array of movies if token is true
+   */
   getAllMovies(): Observable<any> {
     
     return this.http.get(apiUrl + 'movies/', {headers: new HttpHeaders(
@@ -55,7 +63,10 @@ export class UserRegistrationService {
       );
     }
 
-    //Make the api call for the Get One Movie Endpoint
+    /**Make the api call for the Get One Movie Endpoint
+     * @param {string} title Movie's Title
+     * @return 401 status is token is false, 200 status and movie object if true
+     */
   getOneMovies(title: string): Observable<any> {
     
     return this.http.get(apiUrl + 'movies/' + title, {headers: new HttpHeaders(
@@ -67,7 +78,10 @@ export class UserRegistrationService {
       );
   }
 
-  //Make the api call for the Get Director Endpoint
+  /**Make the api call for the Get Director Endpoint
+   * @param {string} directorName Director's Name
+   * @return 401 status is token is false, 200 status and Director object. If no Director, 400 satus
+   */
   getDirector( directorName: string): Observable<any> {
   
     return this.http.get(apiUrl+ 'movies/directors/' + directorName, {headers: new HttpHeaders(
@@ -79,7 +93,10 @@ export class UserRegistrationService {
       );
   }
 
-  //Make the api call for the Get Genre Endpoint
+  /**Make the api call for the Get Genre Endpoint
+   * @param {string} genreName Name of Genre
+   * @return 401 status is token is false, 200 status and Genre object
+   */
   getGenre( genreName: string): Observable<any> {
     
     return this.http.get(apiUrl + 'movies/genre/' + genreName, {headers: new HttpHeaders(
@@ -91,7 +108,10 @@ export class UserRegistrationService {
       );
   }
 
-  //Make the api call for the Get User Endpoint
+  /**Make the api call for the Get User Endpoint
+   * @param {string} Username Username
+   * @returns 401 status is token is false, 200 status and user profile
+   */
   getUserByUsername( Username: string): Observable<any> {
     
       return this.http.get(apiUrl + 'users/' + Username, {headers: new HttpHeaders(
@@ -103,7 +123,10 @@ export class UserRegistrationService {
         );
   }
 
-  //Make the api call for the Get Favorite Movie as a User Endpoint
+  /**Make the api call for the Get Favorite Movie as a User Endpoint
+   * @param {string} Username Username
+   * @return 400 status if token is false, 200 status and array of favorite movie object
+   */ 
   getFavoriteMovie(Username: string): Observable<any> {
    
     return this.http.get(apiUrl + 'users/' + Username, {headers: new HttpHeaders(
@@ -116,7 +139,11 @@ export class UserRegistrationService {
     );
   }
 
-  //Make the api call for the Add Movie to Favorites Endpoint
+  /**Make the api call for the Add Movie to Favorites Endpoint
+   * @param {string} Username Username
+   * @param {string} movie Movie's Title
+   * @return 400 status if token is false, 200 status if add succesfful and movie added to favorite movie array
+   */
   addFavoriteMovies(Username: string, movie: string): Observable<any> {
     
     console.log(apiUrl +'users/' + Username + '/movies/' + movie);
@@ -130,7 +157,10 @@ export class UserRegistrationService {
       );
   }
 
-  //Make the api call for the Edit User Endpoint
+  /**Make the api call for the Edit User Endpoint
+   * @param {string} Username Username
+   * @return 400 status if token is false, 200 status and user details updated
+   */
   editUser(Username: string): Observable<any> {
   
     console.log(apiUrl + 'users/' +  Username)
@@ -143,7 +173,10 @@ export class UserRegistrationService {
       );
   }
 
-  //Make the api call for the Delete User Endpoint
+  /**Make the api call for the Delete User Endpoint
+   * @param {string} Username Username
+   * @return status 400 if token is false, 200 status and user deleted, taken to welcome page
+   */
   deleteUser(Username: string): Observable<any> {
     
     return this.http.delete( apiUrl + 'users/' + Username, {headers: new HttpHeaders(
@@ -155,7 +188,11 @@ export class UserRegistrationService {
       );
   }
 
-  //Make the api call for the Delete Movie From Favorites Endpoint
+  /**Make the api call for the Delete Movie From Favorites Endpoint
+   * @param {string} Username Username
+   * @param {string} movie Movie's Title
+   * @return 400 status if token false, 200 status and movie removed from favorite movie array
+   */
   deleteFavoriteMovie(Username: string, movie: string): Observable<any> {
     
     return this.http.delete(apiUrl + 'users/' + Username + '/movies/' + movie, {headers: new HttpHeaders(
